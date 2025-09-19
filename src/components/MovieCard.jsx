@@ -13,13 +13,15 @@ const MovieCard = ({ movie:
           }
           alt={title}
         /> */}
+        <img src="./no-movie.png" alt="" />
+
         <div className="mt-4">
           <h3>{title}</h3>
           <div className="content">
-            <div className="rating">
-              <img src="./star.svg" alt="" />
+            <div className="flex">
+              <img src="star.svg" alt="Star Icon" />
               <p>{vote_average ? vote_average.toFixed(1) : "N/A"}</p>
-            </div>
+            </div>  
 
             <span>•</span>
             <p className="lang">{original_language}</p>
