@@ -21,12 +21,14 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
 
-  const fetchMovies = async () => {
+  const fetchMovies = async (query = '') => {
     setIsLoading(true);
     setErrorMessage('');
 
     try {
-      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const endpoint = query
+        ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
+        : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
       const response = await fetch(endpoint, API_OPTIONS);
 
@@ -53,8 +55,8 @@ function App() {
   };
 
   useEffect(() => {
-    fetchMovies();
-  }, []);
+    fetchMovies(searchTerm);
+  }, [searchTerm]);
 
   return (
     <>
@@ -67,14 +69,14 @@ function App() {
             <h1 className="text-gradient">Movies</h1>
 
             <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            <h3 className="text-white">{searchTerm}</h3>
+            {/* <h3 className="text-white">{searchTerm}</h3> */}
           </header>
 
           <section className="all-movies">
             <h2 className="mt-[40px]">All Movies</h2>
             {
               // isLoading ? (
-              //   <Spinner />
+              //   // <Spinner />
               // ) :
                 errorMessage ? (
                 <p className="text-red-500">{errorMessage}</p>
